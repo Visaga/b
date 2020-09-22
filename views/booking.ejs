@@ -1,0 +1,99 @@
+
+<%- include ("./partials/header")%>
+  <div class="bookings-container">
+    <div class="bookings-wrapper">
+ 
+      <div class="select">
+        <div class="select-header">
+          <span class="select-current">Any</span>
+            <div class="select-icon">&times</div>
+        </div>
+      
+		  
+        <div class="select-body">
+			 <% allMasters.forEach(master => {%>
+			<div class="select-item">
+             <span class="select-current"><%= master.name%></span>
+            <div class="select-icon"><img src="<%= master.image %>" alt="master" class="ava"></div>
+          </div>
+		    <% });%>
+        </div>
+      </div>
+      <div class="calendar">
+		  <% const d = new Date()%>
+		   
+		  
+		  <% const weekDays = [ "Sun","Mon", "Tue", "Wed", "Thur", "Fri", "Sat"]; %>
+		   <% let count = 0 %>
+		  <% let index = 0 %>
+	<% for (let i = 0; i < 7; i ++){ %>
+		  
+
+		 
+		  <% if ( (count + d.getDay()) < 7 ){ %>
+		
+			  <% index = (d.getDay() + count) %>
+		      <% count += 1 %>
+		  <% } else{ %>
+		
+		  		<%  count = 0 %>
+		  		<%  index = (d.getDay() - d.getDay()) %>
+		  		<%   count -= (d.getDay() - 1) %>
+		 <% } %>
+		  
+		  
+		 <div class="dayname">
+          <h5 id="<%= index %>" class="day"><%= weekDays[index]  %></h5>
+			 <% const date = new Date(Date.now()+(86400000 * i))%>
+          <div class="day-date"><%= date.getDate() + "." + (date.getMonth() +1) + "." + date.getFullYear()%></div>
+        </div>
+			  
+		 <% } %> 
+		  
+
+
+      </div>
+      <div class="times-wrapper">
+        <div class="time">
+          <ul class="time-list">
+            <li class="time-line "> 10:00 </li>
+            <li class="time-line "> 15:00 </li>
+            <li class="time-line "> 11:00 </li>
+            <li class="time-line "> 16:00 </li>
+            <li class="time-line "> 12:00 </li>
+            <li class="time-line "> 17:00 </li>
+            <li class="time-line "> 13:00 </li>
+            <li class="time-line "> 18:00 </li>
+            <li class="time-line "> 14:00 </li>
+            <li class="time-line"> 19:00 </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+          <form action="/booking" method="POST">
+            <div class="input-wrapper">
+               <label for="name" class="name"> Name: </label>
+               <input id="name" type="text" name="name" placeholder="Enter Your Name">
+            </div>
+            <div class="input-wrapper">
+                <label for="mobile" class="mobile">Phone: </label>
+                <input id="mobile" type="phone" name="phone" placeholder="Enter your Phone Number">
+            </div>
+               <div class="input-wrapper">
+                <label for="mobile" class="mobile">Add Comment: </label>
+                <textarea name="comment" id="comment" cols="" rows=""></textarea>
+            </div>
+            <div class="input-wrapper">
+              <input id="master" class="invisible" type="hidden" name="master" value="Any" >
+            <input id="day" class="invisible"  type="hidden" name="day" value="" >
+            <input id="time" class="invisible" type="hidden" name="time" value=""  >
+            </div>
+            <input type="submit" class="btn-submit" value="Book Now">
+      </form>
+  </div>
+
+
+
+<script src="/booking.js"></script>
+
+<%- include ("./partials/footer")%>

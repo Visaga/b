@@ -1,0 +1,26 @@
+
+<%- include ("./partials/header")%>
+
+
+<div class="section-gallery">
+	<div class="section-title">
+        <h3 class="title">Gallery</h3>
+          <div class="separator"></div>
+    </div>
+	<div class="gallery-container">
+	     	<% allImages.forEach(img => { %>
+		<div class="gallery_img_block">
+		    <img src="<%= img.image %>" alt="<%= allImages.name%>" class="gallery_img">
+		</div>
+	<% });%>
+	</div>
+	 <div class="popUp hide">
+
+      </div>
+      <div class="separator_big"></div>
+</div>
+
+
+<script src="/gallery.js"></script>
+
+<%- include ("./partials/footer")%>
