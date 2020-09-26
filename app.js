@@ -32,23 +32,10 @@ app.set("view engine","ejs");
 app.use(express.static(__dirname + "/public")); // TO CONNECT STYLESHEETS
 
 
-// Gallery.create(
-// 	{image: "https://haircutsimages.org/wp-content/uploads/2020/02/Mens-Long-Undercut-Hairstyles-2020.jpg",
-// 	 name: "Third img ",
-// 	 descriptions: "this is Third" 
-// 	}, (err, created) => {
-// 		if (err){
-// 			console.log(err)
-// 		} else {
-// 			console.log(created);
-// 		}
-// 		created.save();
-// 	})
-
 
 // Master.create({
 //     image: "https://avatars.mds.yandex.net/get-pdb/1605014/1cb472b4-40cd-41e6-a7ab-b74e0ba13c73/s1200",
-// 	name: "Robert Burke",
+// 	name: "Livia Rem",
 // 	position: "Master",
 // 	descriptions: "Hi, Im Barber for about 20 yers and how about you my friend?",
 // 	rota: {
@@ -75,7 +62,7 @@ app.use(express.static(__dirname + "/public")); // TO CONNECT STYLESHEETS
 
 
 
-// =========== change rota 
+//=================== DAYLY ROTA UPDATE========= 
 
 // Master.find({}, (err, allMasters) => {
 // 	if (err){
@@ -166,32 +153,24 @@ app.get("/booking/day", (req, res) => {
 
 
 app.post("/booking", (req, res) => {
+	const {name, phone, comment, master, day, time} = req.body;
 	
-    Booking.create({
-		name: req.body.name,
-		phone: req.body.phone,
-		comment: req.body.comment,
-		master: req.body.master,
-		day: req.body.day,
-		time: req.body.time
-	}, (err, appointment) => {
+    Booking.create({name,phone,comment,master,day,time}, (err, appointment) => {
 		if (err){
 			console.log(err);
 		} else {
 			appointment.save();
-			Master.findOne({name: req.body.master}, (err, foundMaster) => {
+			Master.findOne({name: master}, (err, foundMaster) => {
 				if (err){
 					console.log(err);
 				} else{
-					console.log(req.body.master);
+					
 					//check if time is availble 
-					
-					
 					function checkTimeAvailability(){
 						let timeStatus =  false;
 						console.log(req.body)
-						foundMaster.appointments[req.body.day].forEach(dayAppoitment =>{ 
-					        if (dayAppoitment.time == req.body.time){
+						foundMaster.appointments[day].forEach(dayAppoitment =>{ 
+					        if (dayAppoitment.time == time){
 								timeStatus = true;
 						//time already booked
 					     } 
@@ -200,10 +179,10 @@ app.post("/booking", (req, res) => {
 					}
 					
 					if (checkTimeAvailability() != true){
-					    foundMaster.appointments[req.body.day].push(appointment);
+					    foundMaster.appointments[day].push(appointment);
 					    	
-						console.log("created");
-						console.log(foundMaster.appointments[req.body.day]  + "juk");
+						console.log("New appointment has been created");
+						console.log(appointment);
 						foundMaster.save();
 						res.redirect("/");
 					} else {
@@ -226,7 +205,68 @@ app.post("/booking", (req, res) => {
 
 
 
+// ===============Admin dashbord==========
+ 
+app.get("/bensdashbord", (req, res) => {
+	Master.find({}, (err, allMasters) => {
+		if (err){
+			console.log(err);
+		} else {
+			res.render("dashbord", {allMasters});
+		}
+	});
+});
 
+
+// ========Ajax======
+
+//show selected master details
+app.get("/bensdashbord/master", (req, res) => {	
+	
+	Master.findOne({name: req.headers.master}, (err, foundMaster) => {
+		if (err){
+			console.log(err);
+		} else {
+			res.send(foundMaster);
+		}
+	});
+});
+
+
+
+
+// Delete appointment
+
+app.get("/bensdashbord/delete", (req, res) => {	
+	
+	Master.findOne({name: req.headers.master}, (err, foundMaster) => {
+		const appId = req.headers.appointmentid;
+		
+		if (err){
+			console.log(err);
+		} else {
+			
+			Object.keys(foundMaster.appointments).forEach(function(key, ind) {
+           if(ind !== 0){
+	           this[key].forEach(app =>{
+				   
+		         if (app._id == appId){
+		        	console.log(app)
+		}
+	})
+	
+} 
+}, foundMaster.appointments);
+			// console.log(foundMaster.appointments)
+			res.send({foundMaster, message: "Hello Bliaha chut ne udalil appp"});
+		}
+	});
+});
+
+
+
+
+//----------------------------------------
 
 
 

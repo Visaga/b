@@ -1,0 +1,72 @@
+
+<%- include ("./partials/header")%>
+
+ <div class="dashbord-container">
+    <div class="dashbord">
+      <div class="dashbord-titles-wrapper">
+        <div class="dashbord-title masters-title active-header">Masters</div>
+        <div class="dashbord-title appointment-title">Appointments</div>
+        <div class="dashbord-title rotas-title">Rotas</div>
+      </div>
+      <div class="days-masters-wrapper">
+        <% allMasters.forEach(master => { %> 
+		   <div class="day-master "><%= master.name%></div>
+		  <%}) %>
+    </div>
+		
+		
+      <div class="dashbort-results-wrapper">
+        <div class="master-info">
+          <div class="master-workingDays">
+			   <% const d = new Date()%>
+			   <% const weekDays = [ "Sun","Mon", "Tue", "Wed", "Thur", "Fri", "Sat"]; %>
+		 	   <% let count = 0 %>
+			   <% let index = 0 %>
+			  
+		       <% for (let i = 0; i < 7; i ++){ %>
+
+		         <% if ( (count + d.getDay()) < 7 ){ %>
+		
+		    	  <% index = (d.getDay() + count) %>
+		          <% count += 1 %>
+		              <% } else{ %>
+		
+				<%  count = 0 %>
+				<%  index = (d.getDay() - d.getDay()) %>
+				<%   count -= (d.getDay() - 1) %>
+			 <% } %>
+			  
+			  <div id="<%= index %>" class="rota-week-day">
+          <div id="<%= index %>" class="rota-day"><%= weekDays[index]  %></div>
+			 <% const date = new Date(Date.now()+(86400000 * i))%>
+          <div class="rota-date"><%= date.getDate() + "." + (date.getMonth() +1)%></div>
+        </div>
+			  
+		 <% } %> 
+       </div>
+        </div>
+		  
+		  
+        <div class="dashbord-appointments-result">
+			
+        </div>
+      </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/dashbord.js"></script>
+
+<%- include ("./partials/footer")%>

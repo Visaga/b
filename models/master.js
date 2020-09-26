@@ -7,7 +7,13 @@ let MasterSchema = new mongoose.Schema({
 	descriptions: String,
 	rota: {},
 	appointments: {
-
+		mon: [],
+		tue: [], 
+		wed: [],
+		thur: [],
+		fri: [],
+		sat: [], 
+		sun: []
 	}
 });
 
