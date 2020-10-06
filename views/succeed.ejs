@@ -1,0 +1,27 @@
+<%- include ("./partials/header")%>
+  
+<div class="dashbord-container">
+	<h1>
+	Your appointment has been successfully booked
+</h1>
+
+<div>
+	Date:  <%= appointment.day%> 
+</div>
+<div>
+	Master:  <%= appointment.master%> 
+</div>
+<div>
+	Time:  <%= appointment.time%> 
+</div>
+<div>
+	Name:  <%= appointment.name%> 
+</div>
+<div>
+	Phone:  <%= appointment.phone%> 
+</div>
+<div>
+	Message:  <%= appointment.comment%> 
+</div>
+</div>
+<%- include ("./partials/footer")%>
