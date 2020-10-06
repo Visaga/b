@@ -1,19 +1,21 @@
 
 <%- include ("./partials/header")%>
+
+<% if (message){ alert(message)}%>
   <div class="bookings-container">
     <div class="bookings-wrapper">
  
       <div class="select">
         <div class="select-header">
           <span class="select-current">Any</span>
-            <div class="select-icon">&times</div>
+            <div class="select-icon">*</div>
         </div>
       
 		  
         <div class="select-body">
 			 <% allMasters.forEach(master => {%>
 			<div class="select-item">
-             <span class="select-current"><%= master.name%></span>
+             <span class="select-current" id="<%=master._id%>" ><%= master.name%></span>
             <div class="select-icon"><img src="<%= master.image %>" alt="master" class="ava"></div>
           </div>
 		    <% });%>
@@ -87,6 +89,7 @@
               <input id="master" class="invisible" type="hidden" name="master" value="Any" >
             <input id="day" class="invisible"  type="hidden" name="day" value="" >
             <input id="time" class="invisible" type="hidden" name="time" value=""  >
+			<input id="id" class="invisible" type="hidden" name="masterId" value=""  >
             </div>
             <input type="submit" class="btn-submit" value="Book Now">
       </form>

@@ -5,6 +5,7 @@ const express          = require("express"),
 	  methodOverride   = require("method-override"),
 	  Gallery          = require("./models/gallery"),
 	  Master           = require("./models/master"),
+	  Day              = require("./models/day"),
 	  Booking          = require("./models/booking"),
 	  passport         = require("passport"),
 	  LocalStrategy    = require("passport-local"), 
@@ -19,7 +20,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 mongoose.connect("mongodb+srv://vobiar:1824Sania@cluster0.vxx8x.mongodb.net/<BarberShop>?retryWrites=true&w=majority", {
 	useNewUrlParser: true,
 	useCreateIndex: true,
-	useUnifiedTopology: true
+	useUnifiedTopology: true,
+	useFindAndModify: false
 }).then(() => {
 	console.log("Connected to DB")
 }).catch(err => {
@@ -30,6 +32,18 @@ mongoose.connect("mongodb+srv://vobiar:1824Sania@cluster0.vxx8x.mongodb.net/<Bar
 app.set("view engine","ejs");
 
 app.use(express.static(__dirname + "/public")); // TO CONNECT STYLESHEETS
+
+
+app.use(function(req, res, next){
+	if (req.method == "GET"){
+	res.locals.url = req._parsedOriginalUrl.path; //////TO PASS THE CURRENT URL TO ALL EJS TEMPLATES INCL PARTIALS (RES.LOCALS + VAR NAME = TO )
+	} else {
+		res.locals.url = "/success"; //////TO PASS THE CURRENT URL TO ALL EJS TEMPLATES INCL PARTIALS (RES.LOCALS + VAR NAME = TO )
+	}
+	next();
+});
+
+
 
 
 
@@ -90,23 +104,39 @@ app.use(express.static(__dirname + "/public")); // TO CONNECT STYLESHEETS
 
 
 
+// Booking.findById("5f6fc71b39f8bc326aca4d48")
+// .then((res) => {
+// 	console.log(res)
+// })
+// .catch(err => console.log(err))
+
+
+
+// Booking.deleteOne( {_id: "5f6e52ad4c637902d652a355"})
+// .then((res) => {
+// 	console.log("removed ")
+// })
+// .catch(err => console.log(err))
+
+
+
+
 
 //==== HOME PAGE =============================
-app.get("/", (req, res) => {
-	res.render("home.ejs");
+app.get("/", (req, res, next) => {
+	
+	Master.findOne({name: "Livia Rem"})
+	.then(result => res.render("home.ejs"))
+	.catch(errr => res.send(errr))	
 });
 // ----------------------------------------------
 
 
 // ==== GALLERY================================
 app.get("/gallery", (req, res) => {
-	Gallery.find({}, (err, allImages) => {
-		if (err){
-			console.log(err);
-		} else{
-			res.render("gallery", {allImages});
-		}
-	});
+	Gallery.find({})
+		.then(allImages => res.render("gallery", {allImages}))
+		.catch(errr => res.send(errr))
 });
 // ----------------------------------------------
  
@@ -121,7 +151,7 @@ app.get("/booking", (req, res) => {
 		if (err){
 			console.log(err)
 		} else {
-			res.render("booking", {allMasters});
+			res.render("booking", {allMasters, message: ""});
 		}
 	});
 });
@@ -129,73 +159,132 @@ app.get("/booking", (req, res) => {
 
 //=======================AJAX======================
 
-app.get("/booking/day", (req, res) => {	
-	Master.findOne({name: req.headers.master}, (err, foundMaster) => {
-		if (err){
-			console.log(err);
-		} else {
-			 	const days = ["sun", "mon", "tue", "wed", "thur", "fri", "sat"];
-			
-			let timesTaken = {}
-			
-			days.forEach(day => {
-				timesTaken[day] = [];
-				foundMaster.appointments[day].forEach(appointmet => {
-					timesTaken[day].push(appointmet.time)
-				})
-			});		
-			res.send([timesTaken, foundMaster.rota]);
-		}
-	});
+
+
+
+app.get("/booking/day", (req, res) => {
+	Booking.find({})
+	.then(allAppointments => {
+		const days = ["sun", "mon", "tue", "wed", "thur", "fri", "sat"];
+		let currentMasterAppsTimes = {sun: [], mon: [], tue: [], wed: [], thur: [], fri: [], sat: []};
+		allAppointments.forEach( app => {
+			if (app.master == req.headers.master){
+				currentMasterAppsTimes[app.day].push(app.time);
+			}
+		});
+		 Master.findOne({name: req.headers.master})
+		.then(master => {
+			 res.json([currentMasterAppsTimes, master.rota]);
+		 })
+	})
+	.catch(err => console.log(err))			
 });
 
+// app.get("/booking/day", (req, res) => {	
+// 	Master.findOne({name: req.headers.master}, (err, foundMaster) => {
+// 		if (err){
+// 			console.log(err);
+// 		} else {
+// 			 	const days = ["sun", "mon", "tue", "wed", "thur", "fri", "sat"];
+			
+// 			let timesTaken = {}
+			
+// 			days.forEach(day => {
+// 				timesTaken[day] = [];
+// 				foundMaster.appointments[day].forEach(appointment => {
+// 					timesTaken[day].push(appointment.time)
+// 				})
+// 			});		
+// 			res.send([timesTaken, foundMaster.rota]);
+// 		}
+// 	});
+// });
 
 
 
 app.post("/booking", (req, res) => {
 	const {name, phone, comment, master, day, time} = req.body;
+	const timeOpen = ["10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00"];
 	
-    Booking.create({name,phone,comment,master,day,time}, (err, appointment) => {
-		if (err){
-			console.log(err);
-		} else {
-			appointment.save();
-			Master.findOne({name: master}, (err, foundMaster) => {
-				if (err){
-					console.log(err);
-				} else{
+	console.log(master)
+	Booking.find({day: day})
+		.then(result => {
+			let bookedTime = [];
+			result.forEach(app =>{
+				if (app.master == master){
+					 bookedTime.push(app.time)
 					
-					//check if time is availble 
-					function checkTimeAvailability(){
-						let timeStatus =  false;
-						console.log(req.body)
-						foundMaster.appointments[day].forEach(dayAppoitment =>{ 
-					        if (dayAppoitment.time == time){
-								timeStatus = true;
-						//time already booked
-					     } 
-					  })
-						return timeStatus;
-					}
-					
-					if (checkTimeAvailability() != true){
-					    foundMaster.appointments[day].push(appointment);
-					    	
-						console.log("New appointment has been created");
-						console.log(appointment);
-						foundMaster.save();
-						res.redirect("/");
-					} else {
-						console.log("time alreday taken")
-						res.redirect("/booking");
-					}
 				}
 			});
-			
-		}
-	});
+		     console.log(bookedTime)
 	
+			 if (timeOpen.includes(time) && !bookedTime.includes(time)){
+						 if(name !== "" && phone !== "" && comment !== "" && master !== "" && day !== "" && time !== ""){
+							      const d = new Date()
+							     let timeStamp = (d.getMonth() +1) + (d.getDate()) + (d.getTime())
+							 
+								Booking.create({name,phone,comment,master,day,time, timeStamp})
+									.then(appointment => {
+									res.render( "succeed", { appointment});
+								})
+								.catch(err => console.log(err))
+						    } else { res.redirect( "/booking") }
+			 } else {
+				 console.log("This time is alredy taken.. Please select another time")
+				 res.redirect("/booking");
+			 }
+		})
+	.catch(err => console.log(err));	
 });
+		
+		
+
+
+
+// app.post("/booking", (req, res) => {
+// 	const {name, phone, comment, master, day, time} = req.body;
+	
+//     Booking.create({name,phone,comment,master,day,time}, (err, appointment) => {
+// 		if (err){
+// 			console.log(err);
+// 		} else {
+// 			appointment.save();
+// 			Master.findOne({name: master}, (err, foundMaster) => {
+// 				if (err){
+// 					console.log(err);
+// 				} else{
+					
+// 					//check if time is availble 
+// 					function checkTimeAvailability(){
+// 						let timeStatus =  false;
+// 						console.log(req.body)
+// 						foundMaster.appointments[day].forEach(dayAppoitment =>{ 
+// 					        if (dayAppoitment.time == time){
+// 								timeStatus = true;
+// 						//time already booked
+// 					     } 
+// 					  })
+// 						return timeStatus;
+// 					}
+					
+// 					if (checkTimeAvailability() != true){
+// 					    foundMaster.appointments[day].push(appointment);
+					    	
+// 						console.log("New appointment has been created");
+// 						console.log(appointment);
+// 						foundMaster.save();
+// 						res.redirect("/");
+// 					} else {
+// 						console.log("time alreday taken")
+// 						res.redirect("/booking");
+// 					}
+// 				}
+// 			});
+			
+// 		}
+// 	});
+	
+// });
 
 
 
@@ -208,13 +297,9 @@ app.post("/booking", (req, res) => {
 // ===============Admin dashbord==========
  
 app.get("/bensdashbord", (req, res) => {
-	Master.find({}, (err, allMasters) => {
-		if (err){
-			console.log(err);
-		} else {
-			res.render("dashbord", {allMasters});
-		}
-	});
+	Master.find({})
+	.then( allMasters => res.render("dashbord", {allMasters}))
+	.catch(err => console.log(err))
 });
 
 
@@ -223,45 +308,79 @@ app.get("/bensdashbord", (req, res) => {
 //show selected master details
 app.get("/bensdashbord/master", (req, res) => {	
 	
-	Master.findOne({name: req.headers.master}, (err, foundMaster) => {
-		if (err){
-			console.log(err);
-		} else {
-			res.send(foundMaster);
+	Booking.find({master: req.headers.master})
+	.then(allAppoitments =>{
+		let foundMasterApointments = {sun: [], mon: [], tue: [], wed: [], thur: [], fri: [], sat: []};
+		allAppoitments.forEach(app => {
+			foundMasterApointments[app.day].push(app)
+		});
+		let masterRota = [];
+		Master.findOne({name: req.headers.master})
+		.then(master => {
+			return {
+			rota: master.rota,
+			appointments: foundMasterApointments 
 		}
-	});
+		})
+		.then(foundMaster => res.json(foundMaster))
+	})
+	.catch(err => console.log(err))
 });
+
+
+
+// app.get("/bensdashbord/master", (req, res) => {	
+	
+// 	Master.findOne({name: req.headers.master}, (err, foundMaster) => {
+// 		if (err){
+// 			console.log(err);
+// 		} else {
+// 			res.send(foundMaster);
+// 		}
+// 	});
+// });
 
 
 
 
 // Delete appointment
 
-app.get("/bensdashbord/delete", (req, res) => {	
-	
-	Master.findOne({name: req.headers.master}, (err, foundMaster) => {
-		const appId = req.headers.appointmentid;
-		
-		if (err){
-			console.log(err);
-		} else {
-			
-			Object.keys(foundMaster.appointments).forEach(function(key, ind) {
-           if(ind !== 0){
-	           this[key].forEach(app =>{
-				   
-		         if (app._id == appId){
-		        	console.log(app)
-		}
-	})
-	
-} 
-}, foundMaster.appointments);
-			// console.log(foundMaster.appointments)
-			res.send({foundMaster, message: "Hello Bliaha chut ne udalil appp"});
-		}
-	});
+
+app.delete("/bensdashbord/delete", (req, res) => {	
+	console.log(req.headers.appointmentid)
+	Booking.findByIdAndRemove(req.headers.appointmentid)
+	.then(() => res.json({message: "Appointment has been Deleted"}))
+	.catch(err => console.log(err))
 });
+
+
+
+
+// app.get("/bensdashbord/delete", (req, res) => {	
+	
+// 	Master.findOne({name: req.headers.master}, (err, foundMaster) => {
+// 		const appId = req.headers.appointmentid;
+		
+// 		if (err){
+// 			console.log(err);
+// 		} else {
+			
+// 			Object.keys(foundMaster.appointments).forEach(function(key, ind) {
+//            if(ind !== 0){
+// 	           this[key].forEach(app =>{
+				   
+// 		         if (app._id == appId){
+// 		        	console.log(app)
+// 		}
+// 	})
+	
+// } 
+// }, foundMaster.appointments);
+// 			// console.log(foundMaster.appointments)
+// 			res.send({foundMaster, message: "Hello Bliaha chut ne udalil appp"});
+// 		}
+// 	});
+// });
 
 
 

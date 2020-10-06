@@ -1,7 +1,9 @@
 const dashTitles = document.querySelectorAll(".dashbord-title"),
       masterNames = document.querySelectorAll(".day-master"),
 	  weekDays = document.querySelectorAll(".rota-week-day"),
-	  appResults = document.querySelector(".dashbord-appointments-result")
+	  appResults = document.querySelector(".dashbord-appointments-result"),
+	  masterWorkingDays = document.querySelector(".master-workingDays")
+
 	  
 	  
 
@@ -29,7 +31,9 @@ function selectMasterAndUpdateInfo(){
     name.classList.remove("active-name");
     this.classList.add("active-name");
 	weekDays.forEach(day => day.classList.remove("working-day-in"));	
+    let loader = `<div class="boxLoading">Loading...</div>`;
 		
+	 appResults.innerHTML = loader;
 
 	
 		//SEnd req/////////////////////////////////////////
@@ -88,6 +92,7 @@ function selectMasterAndUpdateInfo(){
                     <button id="`+ app._id + `" class="cancel-btn"><a href="#" class="cancel-link">CANCEL</a></button>   
                </div> 
                <div class="client-message">` + app.comment + `</div>
+               <div class="timeStamp">` + app.timeStamp  + `</div>
 `
 			
 			workingDayWrapper.append(appLine);
@@ -102,10 +107,10 @@ function selectMasterAndUpdateInfo(){
 	
 		cancelBtns.forEach((btn, ind) =>{
 			btn.addEventListener("click", (e) => {
-				console.log(cancelBtns[ind].id)
+				e.preventDefault();
 				
 				let request = fetch("/bensdashbord/delete", {
-                  method: "GET", 
+                  method: "DELETE", 
 	                 headers: {
                               "Content-type": "text/plain",
 		                    "appointmentId":  cancelBtns[ind].id,
@@ -117,6 +122,7 @@ function selectMasterAndUpdateInfo(){
 				})
 				.then(res => {
 					console.log(res.message)
+					e.target.closest('.appointment-line').remove();
 				})
 				.catch((err) => console.log("Somethinng whent wrong!" + err))
 			});	

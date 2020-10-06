@@ -18,7 +18,7 @@ select.addEventListener("click", () => {
   selectItems.forEach(item => {
     item.addEventListener("click", () => {
       selectHeader.innerHTML = item.innerHTML;
-      master.value = item.innerText;
+      master.value = item.querySelector(".select-current").innerHTML;
 	 days.forEach(day => {
 		day.classList.remove("selectedDay");
 		});
@@ -43,18 +43,7 @@ const weekDays = [ "Sun","Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
 
 
   let count = 0;  
-// days.forEach((day, ind) => {
-//       if (d.getDay() + count <= 6) {
-//           days[ind].textContent =  weekDays[d.getDay() + count];
-// 		  days[ind].number = (d.getDay() + count);
-//   count +=1
-//       } else{
-//         count = 0;
-//          days[ind].textContent =  weekDays[d.getDay() - d.getDay()];
-// 		 days[ind].number = (d.getDay() - d.getDay());
-//         count -= (d.getDay() - 1);
-//       }
-// });
+
 
 
 
@@ -73,6 +62,7 @@ selectBody.addEventListener("click", checkMasterRota);
     }
   })
   .then((res) => { 
+	  console.log( master.value)
     return res.json();
 })
   //==========CHECK FOR WORKING DAYS
@@ -101,13 +91,16 @@ selectBody.addEventListener("click", checkMasterRota);
 			
 		//========FIND AVAILIBLE TIME
 		
-			   timeLine.forEach(timeBox => {
+			    timeLine.forEach(timeBox => {
 				   timeBox.classList.remove("selected-time");
-				if (res[0][dayInput.value].includes(timeBox.innerText)){
+				   
+				   	if (res[0][dayInput.value] && res[0][dayInput.value].includes(timeBox.innerText)){
 					timeBox.classList.remove("time-availible");					
-				} else {
+				     }
+	
+				 else {
 					timeBox.classList.add("time-availible");
-				}  
+				}    
 			   });
 			}	 
 		 });
@@ -129,21 +122,6 @@ selectBody.addEventListener("click", checkMasterRota);
 	  
 	
       
-	
-	  
-	  
-// availableTime.forEach(timeBox => {
-//   timeBox.addEventListener("click", selectTime);
-// });
-
-// function selectTime(){
-// 	console.log("hello")
-//   availableTime.forEach(time => {
-//     time.classList.remove("selected-time");
-//   });
-//   this.classList.add("selected-time");
-//   time.value = this.innerText;
-// }
 
   });
 	 

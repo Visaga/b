@@ -12,7 +12,7 @@
 <body> 
       <nav>
     <div class="logo-flex-wrapper">
-      <h1 class="logo">~ BEN'S BARBER SHOP ~</h1>
+      <a href="/" class="logo">~ BEN'S BARBER SHOP ~</a>
     </div>
     <div class="hamburger">
       <div id="firstLine" class="line"></div>
@@ -20,9 +20,18 @@
       <div id="thirdLine" class="line"></div>
     </div>
     <ul class="nav-links">
+		<%console.log(url)%>
+		<% if (url == "/" ){%>
       <li><a href="#header" class="scroll-to">Home</a></li>
       <li><a href="#ourTeam" class="scroll-to">Our Team</a></li>
-      <li><a href="#gallery" class="scroll-to">Gallery</a></li>
-      <li><a href="#footer#" class="scroll-to">Contact</a></li>
+	  <li><a href="#gallery" class="scroll-to">Gallery</a></li>
+      <li><a href="#footer" class="scroll-to">Contact</a></li>	
+		<%} else{%>
+		
+	  <li><a href="/#header" class="">Home</a></li>
+      <li><a href="/#ourTeam" class="">Our Team</a></li>
+      <li><a href="/gallery" class="">Gallery</a></li>
+      <li><a href="#footer" class="scroll-to">Contact</a></li>
+	 <%}%>	
     </ul>
   </nav>
