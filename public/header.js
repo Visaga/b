@@ -1,5 +1,3 @@
-alert("hell")
-console.log("footer js")
 
 const nav = document.querySelector("nav"),
       hamburger = document.querySelector(".hamburger"),
@@ -7,8 +5,7 @@ const nav = document.querySelector("nav"),
       links = document.querySelectorAll(".nav-links li"),
       hambFirstLine = document.querySelector("#firstLine"),
       hambSecondLine = document.querySelector("#secondLine"),
-      hambThirdLine = document.querySelector("#thirdLine"),
-      btn = document.querySelector(".btn");
+      hambThirdLine = document.querySelector("#thirdLine");
       
 
 hamburger.addEventListener("click", () =>{
@@ -40,41 +37,9 @@ links.forEach( link => {
   });
 });
 
+links.forEach(link =>{
+	if (window.location.href.includes(link.innerText.toLowerCase())){
+		console.log(link.innerText.toLowerCase())
+	}
+})
 
-//=========================NAV SCROLL ANIMATION==============
-const sections = document.querySelector(".sections");
-
-let prevScrollpos = window.pageYOffset;
-window.onscroll = function() {
-  let currentScrollPos = window.pageYOffset;
-  
-  if (prevScrollpos > currentScrollPos && prevScrollpos > 0 && prevScrollpos < (document.body.clientHeight - window.innerHeight)) {
-    nav.classList.remove("nav-mobile");
-    
-    sections.classList.remove("sections-modbile-onScrollDown");
-  } else {
-    if (prevScrollpos > 0){
-          nav.classList.add("nav-mobile");
-    sections.classList.add("sections-modbile-onScrollDown");
-    }
-  }
-  prevScrollpos = currentScrollPos;
-}
-
-
-// ==============================Click scroll===========
-
-const anchors = document.querySelectorAll('a.scroll-to')
-
-for (let anchor of anchors) {
-  anchor.addEventListener('click', function (e) {
-    e.preventDefault()
-    
-    const blockID = anchor.getAttribute('href')
-    
-    document.querySelector(blockID).scrollIntoView({
-      behavior: 'smooth',
-      block: 'start'
-    })
-  })
-}
