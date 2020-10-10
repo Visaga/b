@@ -18,7 +18,9 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 mongoose.connect("mongodb+srv://vobiar:1824Sania@cluster0.vxx8x.mongodb.net/<BarberShop>?retryWrites=true&w=majority", {
 	useNewUrlParser: true,
-	useCreateIndex: true
+	useCreateIndex: true,
+	useUnifiedTopology: true,
+	useFindAndModify: false
 }).then(() => {
 	console.log("Connected to DB")
 }).catch(err => {
@@ -395,9 +397,9 @@ app.delete("/bensdashbord/delete", (req, res) => {
 
 
 
-// app.listen(3333, () =>{
-// 	console.log("Serever started")
-// })
+app.listen(3333, () =>{
+	console.log("Serever started")
+})
 
 
-app.listen(process.env.PORT, '0.0.0.0')   //server for heroku
+// app.listen(process.env.PORT, '0.0.0.0')   //server for heroku
