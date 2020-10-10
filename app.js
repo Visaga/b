@@ -203,7 +203,7 @@ app.get("/booking/day", (req, res) => {
 
 
 app.post("/booking", (req, res) => {
-	const {name, phone, comment, master, day, time} = req.body;
+	const {name, phone, comment, master, day, date,time} = req.body;
 	const timeOpen = ["10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00"];
 	
 	console.log(master)
@@ -223,7 +223,7 @@ app.post("/booking", (req, res) => {
 							      const d = new Date()
 							     let timeStamp = (d.getMonth() +1) + (d.getDate()) + (d.getTime())
 							 
-								Booking.create({name,phone,comment,master,day,time, timeStamp})
+								Booking.create({name,phone,comment,master,day,time, date, timeStamp})
 									.then(appointment => {
 									res.render( "succeed", { appointment});
 								})

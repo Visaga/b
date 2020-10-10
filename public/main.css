@@ -187,11 +187,9 @@ nav{
   position: relative;
 }
 .btnText{
-  z-index: 5;
-    display: block;
-    position: absolute;
-    left: 42px;
-    top: 11px;
+  z-index: 3;
+  display: block;
+  position: relative;
 }
 
 .hoverEffectBox{
@@ -204,7 +202,7 @@ nav{
     transition: all 0.1s ease-in;
 }
 .hoverActive{
-  left: 0px;
+  left: -1px;
 }
 
 
@@ -1153,7 +1151,7 @@ textarea{
 }
 .dashbort-results-wrapper{
   width: 100%;
-   min-width: 490px;
+   
 }
 .master-info{
   width: 100%;
@@ -1190,7 +1188,6 @@ textarea{
 }
 .dashbord-appointments-result{
   display: flex;
-  justify-content: center;
   align-items: center; 
   flex-direction: column;
   min-height: 50vh;
@@ -1198,6 +1195,10 @@ textarea{
 
 .dashbord-preview{
 	font-size: 18px;
+	display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50vh;
 }
 
 .boxLoading{
@@ -1210,16 +1211,29 @@ textarea{
 }
 .working-day{
  text-align: center;
-  width: 150px;
- padding: 15px; 
  font-size: 1.2rem;
- display: inline-block;
- background: #f0ad4e;
+ display: flex;
  margin-top: 15px;
  margin-bottom: -4px;
  color: #000;
  text-transform: capitalize;	
-  
+}
+
+.day-date-wrapper{
+	background: #f0ad4e;
+	padding: 5px 20px;
+}
+
+.app-date{
+	font-size: 10px;
+}
+.total-app{
+	font-size: 14px;
+    color: #f0ad4e;
+    display: flex;
+    align-items: center;
+    border: 1px solid;
+	padding: 5px 20px;
 }
   
 .working-day-rest{

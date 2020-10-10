@@ -6,8 +6,9 @@ const select = document.querySelector(".select"),
 	  days = document.querySelectorAll(".day"),
       master = document.querySelector("#master"),
 	  timeLine = document.querySelectorAll(".time-line"),
-      time = document.querySelector("#time");
-	  
+      time = document.querySelector("#time"),
+	  date = document.querySelector(".day-date")
+	  dateInput = document.querySelector("#date");
 
 
 select.addEventListener("click", () => {
@@ -88,6 +89,7 @@ selectBody.addEventListener("click", checkMasterRota);
 		     });
 			day.classList.add("selectedDay");
 			dayInput.value = day.innerText.replace(/\s/g, '').toLowerCase();
+			dateInput.value = date.innerText;
 			
 		//========FIND AVAILIBLE TIME
 		
