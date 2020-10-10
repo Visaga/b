@@ -3,10 +3,9 @@ const express          = require("express"),
 	  bodyParser       = require("body-parser"),
 	  mongoose         = require("mongoose"),
 	  methodOverride   = require("method-override"),
-	  Gallery          = require("./models/gallery"),
+	  Gallery          = require("./models/galleryschm.js"),
 	  Master           = require("./models/master"),
-	  Day              = require("./models/day"),
-	  Booking          = require("./models/booking"),
+	  Booking          = require("./models/bookingschm"),
 	  passport         = require("passport"),
 	  LocalStrategy    = require("passport-local"), 
 	  url              = require("url");
@@ -386,11 +385,6 @@ app.delete("/bensdashbord/delete", (req, res) => {
 
 
 //----------------------------------------
-
-
-
-
-
 
 
 
