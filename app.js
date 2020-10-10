@@ -18,9 +18,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 mongoose.connect("mongodb+srv://vobiar:1824Sania@cluster0.vxx8x.mongodb.net/<BarberShop>?retryWrites=true&w=majority", {
 	useNewUrlParser: true,
-	useCreateIndex: true,
-	useUnifiedTopology: true,
-	useFindAndModify: false
+	useCreateIndex: true
 }).then(() => {
 	console.log("Connected to DB")
 }).catch(err => {
