@@ -35,7 +35,7 @@ nav{
   font-family: 'Montserrat', sans-serif;
   font-weight: 400;
   z-index: 5;
-  border-bottom: 1px solid #c69d5b;
+  border-bottom: 1px solid #c69d5b30;
   transition: all 0.5s;
 }
   .nav-mobile{
@@ -432,7 +432,7 @@ nav{
   padding: 10px;
 }
 .name{
-  font-size: 1.4rem;
+  font-size: 12px;
   font-family: 'Montserrat', sans-serif;
   font-weight: 400;
 }
@@ -897,12 +897,12 @@ iframe:hover{
 
 .bookings-container{
   width: 100%;
-  height: 90vh;
   min-height: 700px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  margin-bottom: 40px;
 }
 
 .bookings-wrapper{
@@ -911,14 +911,34 @@ iframe:hover{
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  background: green;
-  border: 1px solid gold;
+  margin-top: 15vh;
+ position: relative;
+}
+
+.bookings-wrapper:after {
+    content : "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+	background-image: url(https://www.desktopbackground.org/download/o/2015/08/05/990462_barber-shop-backgrounds_2048x1365_h.jpg);
+    width: 100%;
+    height: 100%;
+    opacity : 0.1;
+    z-index: -1;
+	padding-bottom: 30px;
+	
 }
 
 
 /* ==================Select */
 
-
+.select-wrapper{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 20px;
+}
 .select{
   width: 250px;
   position: relative;
@@ -926,18 +946,31 @@ iframe:hover{
 	color: #000;
 }
 
+
+.select-label{
+	color: #fff;
+	padding: 8px;
+	font-size: 11px;
+	text-transform: uppercase;
+}
+
+.select-icon{
+	color: red;
+	font-weight: 700;
+}
 .select.is-active .select-body{
   display: block;
 }
 
 .select-header {
+  color: #ffffffe0;
   display: flex;
   justify-content: space-between;
-  border: 1px solid black;
+  border-radius: 5px;
   cursor: pointer;
   width: 250px;
-  margin: 0 auto;
-  background:#fff;
+  margin: 0px auto;
+  background: #ffffff26;
 }
 
 
@@ -993,7 +1026,6 @@ iframe:hover{
 
 /* ====================days */
 .calendar{
-  background: pink;
   width: 100%;
   display: flex;
   justify-content: center; 
@@ -1001,7 +1033,7 @@ iframe:hover{
 }
 
 .dayname{
-   background: grey;
+   background: #8080804a;
 	  margin: 5px 1px;
 }
 .day{
@@ -1036,27 +1068,30 @@ iframe:hover{
 
 .times-wrapper{
   width: 100%;
-  background: grey;
 }
 .time-list{
+  margin: 10px auto;
   display: flex;
   flex-wrap: wrap;
-  width: 100%;
+  width: 80%;
   
 }
 .time-line{
   padding: 2%;
   list-style: none;
   width: 50%;
-  border: 1px solid red;
+  border: 1px solid #ffffff47;
   text-align: center;
-  opacity: 0.4;
-  background: green;
+	opacity: 0.2;
+	 background: #ffffff10;
 }
+
+
 
 .time-availible{
   opacity: 1;
   cursor: pointer;
+   background: rgb(200, 40, 50, 0); 
 }
 .time-availible:hover{
   background: teal;
@@ -1070,35 +1105,52 @@ iframe:hover{
 /* ========== Form */
 
 form{
-  width: 50%;
+  width: 90%;
   min-width: 300px;
-  background: grey;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+ margin-top: 20px;
 }
 
 .input-wrapper{
   width: 100%;
   display: flex;
   justify-content: center;
+margin-top: 15px;
 }
 
 label{
   width: 30%;
+font-size: 12px;
 }
 
 input{
   width: 70%;
   height: 35px;
+	background: #ffffff26;
+	border: none;
+padding: 5px;
 }
+input::-webkit-input-placeholder {color:#fff;}
 
 textarea{
   width: 70%;
   height: 70px;
   overflow: scroll;
+  background: #ffffff26;
+	border: none;
+	padding: 5px;
+	color: #fff;
 }
+
+textarea::-webkit-scrollbar {
+  display: none;
+	
+}
+
+
 /* 
 /////////////////DASHBORD ========================= */
 .dashbord-container{
@@ -1432,9 +1484,14 @@ textarea{
     transition: all 0.5s ease 0.6s;
   }
     .nav-links li:nth-child(4){
-    -webkit-transition: all 0.5s ease 0.7s;
-    -o-transition: all 0.5s ease 0.7s;
-    transition: all 0.5s ease 0.7s;
+    -webkit-transition: all 0.5s ease 0.8s;
+    -o-transition: all 0.5s ease 0.8s;
+    transition: all 0.5s ease 0.8s;
+  }
+  .nav-links li:nth-child(5){
+    -webkit-transition: all 0.5s ease 1s;
+    -o-transition: all 0.5s ease 1s;
+    transition: all 0.5s ease 1s;
   }
   
    li.fade{

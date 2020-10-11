@@ -4,10 +4,13 @@
 <% if (message){ alert(message)}%>
   <div class="bookings-container">
     <div class="bookings-wrapper">
- 
+		<div class="select-wrapper">
+			    <div class="select-label">
+		   Select Master:
+		</div>
       <div class="select">
         <div class="select-header">
-          <span class="select-current">Any</span>
+          <span class="select-current">Choose </span> 
             <div class="select-icon">*</div>
         </div>
       
@@ -20,6 +23,8 @@
           </div>
 		    <% });%>
         </div>
+		</div>
+
       </div>
       <div class="calendar">
 		  <% const d = new Date()%>
@@ -59,19 +64,17 @@
         <div class="time">
           <ul class="time-list">
             <li class="time-line "> 10:00 </li>
-            <li class="time-line "> 15:00 </li>
-            <li class="time-line "> 11:00 </li>
-            <li class="time-line "> 16:00 </li>
-            <li class="time-line "> 12:00 </li>
-            <li class="time-line "> 17:00 </li>
-            <li class="time-line "> 13:00 </li>
-            <li class="time-line "> 18:00 </li>
             <li class="time-line "> 14:00 </li>
-            <li class="time-line"> 19:00 </li>
+            <li class="time-line "> 11:00 </li>
+            <li class="time-line "> 15:00 </li>
+            <li class="time-line "> 12:00 </li>
+            <li class="time-line "> 16:00 </li>
+            <li class="time-line "> 13:00 </li>
+            <li class="time-line "> 17:00 </li>
           </ul>
         </div>
       </div>
-    </div>
+    
           <form action="/booking" method="POST">
             <div class="input-wrapper">
                <label for="name" class="name"> Name: </label>
@@ -94,6 +97,7 @@
             </div>
             <input type="submit" class="btn-submit" value="Book Now">
       </form>
+		</div>
   </div>
 
 
