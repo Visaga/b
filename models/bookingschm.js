@@ -6,7 +6,7 @@ let bookingSchema = new mongoose.Schema({
 		comment: String,
 		master: String,
 		day: String,
-	    date: Date,
+	    date: String,
 		time: String,
 	    timeStamp: Date
 });
