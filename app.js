@@ -398,9 +398,9 @@ app.delete("/bensdashbord/delete", (req, res) => {
 
 
 
-app.listen(3333, () =>{
-	console.log("Serever started")
-})
+// app.listen(3333, () =>{
+// 	console.log("Serever started")
+// })
 
 
-// app.listen(process.env.PORT, '0.0.0.0')  //server for heroku
+app.listen(process.env.PORT, '0.0.0.0')  //server for heroku
