@@ -1,4 +1,12 @@
+import header from "/js/header.js"
+header()
+
+
+
+
 //====================SELECTOR ===============================
+
+
 const select = document.querySelector(".select"),
       selectHeader = document.querySelector(".select-header"),
       selectItems = document.querySelectorAll(".select-item"),

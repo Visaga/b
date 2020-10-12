@@ -1,4 +1,5 @@
-
+function header(){
+alert("header podkliuchen")
 const nav = document.querySelector("nav"),
       hamburger = document.querySelector(".hamburger"),
       navLinks = document.querySelector(".nav-links"),
@@ -42,4 +43,6 @@ links.forEach(link =>{
 		console.log(link.innerText.toLowerCase())
 	}
 })
+}
 
+export default header;

@@ -1,3 +1,6 @@
+
+import header from "/js/header.js"
+header()
 const  galleryImgs = document.querySelectorAll(".gallery_img"),
       galleryImgBlock = document.querySelectorAll(".gallery_img_block");
 

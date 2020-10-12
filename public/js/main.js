@@ -7,6 +7,8 @@ const nav = document.querySelector("nav"),
       hambThirdLine = document.querySelector("#thirdLine"),
       btn = document.querySelector(".btn");
       
+import header  from "/js/header.js"
+header()
 
 hamburger.addEventListener("click", () =>{
   navLinks.classList.toggle("open");

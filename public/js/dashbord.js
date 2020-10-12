@@ -1,5 +1,5 @@
-
-
+import header from "/js/header.js"
+header()
 const dashTitles = document.querySelectorAll(".dashbord-title"),
       masterNames = document.querySelectorAll(".day-master"),
 	  weekDays = document.querySelectorAll(".rota-week-day"),
