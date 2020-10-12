@@ -1,3 +1,5 @@
+// import header  from "/js/header.js"
+
 const nav = document.querySelector("nav"),
       hamburger = document.querySelector(".hamburger"),
       navLinks = document.querySelector(".nav-links"),
@@ -7,8 +9,8 @@ const nav = document.querySelector("nav"),
       hambThirdLine = document.querySelector("#thirdLine"),
       btn = document.querySelector(".btn");
       
-import header  from "/js/header.js"
-header()
+
+
 
 hamburger.addEventListener("click", () =>{
   navLinks.classList.toggle("open");

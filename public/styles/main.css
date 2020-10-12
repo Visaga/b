@@ -1179,9 +1179,7 @@ textarea::-webkit-scrollbar {
   align-items: center;
 }
 .dashbord-title{
-  width: 15%;
-  min-width: 150px;
-  padding: 15px 25px;
+  padding: 10px 20px;
   height: 100%;
   display: flex;
   align-items: center;
@@ -1189,7 +1187,7 @@ textarea::-webkit-scrollbar {
 .days-masters-wrapper{
   margin-top: 5px;
   width: 100%;
-  min-width: 490px;
+  min-width: 320px;
   display: flex;
   justify-content: start;
   font-weight: 700;
@@ -1328,6 +1326,10 @@ textarea::-webkit-scrollbar {
   text-transform: uppercase;
   font-weight: 700;
 }
+.appointment-line-footer{
+	display: flex;
+	justify-content: space-between;
+}
 .cancel-btn{
   background: #d9534f;
 }
@@ -1348,9 +1350,10 @@ textarea::-webkit-scrollbar {
   border-bottom: none;
 }
 .active-header{
- font-size: 20px;
+ font-size: 17px;
  color: #fff;
  position: relative;
+ /* margin: 10px; */
 }
 .active-header::before{
   content: "";

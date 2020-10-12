@@ -224,6 +224,7 @@ app.post("/booking", (req, res) => {
 							 
 								Booking.create({name,phone,comment,master,day,time, date, timeStamp})
 									.then(appointment => {
+									console.log(appointment)
 									res.render( "succeed", { appointment});
 								})
 								.catch(err => console.log(err))
@@ -397,9 +398,9 @@ app.delete("/bensdashbord/delete", (req, res) => {
 
 
 
-// app.listen(3333, () =>{
-// 	console.log("Serever started")
-// })
+app.listen(3333, () =>{
+	console.log("Serever started")
+})
 
 
-app.listen(process.env.PORT, '0.0.0.0')  //server for heroku
+// app.listen(process.env.PORT, '0.0.0.0')  //server for heroku

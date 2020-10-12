@@ -15,7 +15,7 @@ const select = document.querySelector(".select"),
       master = document.querySelector("#master"),
 	  timeLine = document.querySelectorAll(".time-line"),
       time = document.querySelector("#time"),
-	  date = document.querySelector(".day-date")
+	  date = document.querySelectorAll(".day-date"),
 	  dateInput = document.querySelector("#date");
 
 
@@ -89,7 +89,7 @@ selectBody.addEventListener("click", checkMasterRota);
   //==========FIND AVAILIBLE TIME ON DAY SELECT
   .then((res) => { 
 	  
-		days.forEach(day => {
+		days.forEach((day, ind) => {
 		day.addEventListener("click", () => {
 		if (day.classList.contains("available-day")){
 			days.forEach(day => {
@@ -97,7 +97,7 @@ selectBody.addEventListener("click", checkMasterRota);
 		     });
 			day.classList.add("selectedDay");
 			dayInput.value = day.innerText.replace(/\s/g, '').toLowerCase();
-			dateInput.value = date.innerText;
+			dateInput.value = date[ind].innerText;
 			
 		//========FIND AVAILIBLE TIME
 		

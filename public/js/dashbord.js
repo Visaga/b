@@ -105,10 +105,14 @@ function selectMasterAndUpdateInfo(){
                      
                     <div class="client-name">` + app.name + `</div>
                     <div class="client-phone">` + app.phone + `</div>
-                    <button id="`+ app._id + `" class="cancel-btn"><a href="#" class="cancel-link">CANCEL</a></button>   
+                      
                </div> 
                <div class="client-message">` + app.comment + `</div>
-               <div class="timeStamp">` + app.timeStamp  + `</div>
+                <div class="appointment-line-footer">
+                 <div class="timeStamp">` + app.timeStamp  + `</div>
+                 <button id="`+ app._id + `" class="cancel-btn"><a href="#" class="cancel-link">CANCEL</a></button>
+                </div>
+               
 ` 
 			workingDayWrapper.append(appLine);
 		}) 
