@@ -179,27 +179,13 @@ app.get("/booking/day", (req, res) => {
 	.catch(err => console.log(err))			
 });
 
-// app.get("/booking/day", (req, res) => {	
-// 	Master.findOne({name: req.headers.master}, (err, foundMaster) => {
-// 		if (err){
-// 			console.log(err);
-// 		} else {
-// 			 	const days = ["sun", "mon", "tue", "wed", "thur", "fri", "sat"];
-			
-// 			let timesTaken = {}
-			
-// 			days.forEach(day => {
-// 				timesTaken[day] = [];
-// 				foundMaster.appointments[day].forEach(appointment => {
-// 					timesTaken[day].push(appointment.time)
-// 				})
-// 			});		
-// 			res.send([timesTaken, foundMaster.rota]);
-// 		}
-// 	});
-// });
+
+//------------------------------------------------------
 
 
+
+
+//=============BOOKING LOGIC
 
 app.post("/booking", (req, res) => {
 	const {name, phone, comment, master, day, date,time} = req.body;
@@ -224,7 +210,6 @@ app.post("/booking", (req, res) => {
 							 
 								Booking.create({name,phone,comment,master,day,time, date, timeStamp})
 									.then(appointment => {
-									console.log(appointment)
 									res.render( "succeed", { appointment});
 								})
 								.catch(err => console.log(err))
@@ -237,58 +222,6 @@ app.post("/booking", (req, res) => {
 	.catch(err => console.log(err));	
 });
 		
-		
-
-
-
-// app.post("/booking", (req, res) => {
-// 	const {name, phone, comment, master, day, time} = req.body;
-	
-//     Booking.create({name,phone,comment,master,day,time}, (err, appointment) => {
-// 		if (err){
-// 			console.log(err);
-// 		} else {
-// 			appointment.save();
-// 			Master.findOne({name: master}, (err, foundMaster) => {
-// 				if (err){
-// 					console.log(err);
-// 				} else{
-					
-// 					//check if time is availble 
-// 					function checkTimeAvailability(){
-// 						let timeStatus =  false;
-// 						console.log(req.body)
-// 						foundMaster.appointments[day].forEach(dayAppoitment =>{ 
-// 					        if (dayAppoitment.time == time){
-// 								timeStatus = true;
-// 						//time already booked
-// 					     } 
-// 					  })
-// 						return timeStatus;
-// 					}
-					
-// 					if (checkTimeAvailability() != true){
-// 					    foundMaster.appointments[day].push(appointment);
-					    	
-// 						console.log("New appointment has been created");
-// 						console.log(appointment);
-// 						foundMaster.save();
-// 						res.redirect("/");
-// 					} else {
-// 						console.log("time alreday taken")
-// 						res.redirect("/booking");
-// 					}
-// 				}
-// 			});
-			
-// 		}
-// 	});
-	
-// });
-
-
-
-
 
 // ----------------------------------------------
 
@@ -329,19 +262,6 @@ app.get("/bensdashbord/master", (req, res) => {
 
 
 
-// app.get("/bensdashbord/master", (req, res) => {	
-	
-// 	Master.findOne({name: req.headers.master}, (err, foundMaster) => {
-// 		if (err){
-// 			console.log(err);
-// 		} else {
-// 			res.send(foundMaster);
-// 		}
-// 	});
-// });
-
-
-
 
 // Delete appointment
 
@@ -354,53 +274,14 @@ app.delete("/bensdashbord/delete", (req, res) => {
 });
 
 
-
-
-// app.get("/bensdashbord/delete", (req, res) => {	
-	
-// 	Master.findOne({name: req.headers.master}, (err, foundMaster) => {
-// 		const appId = req.headers.appointmentid;
-		
-// 		if (err){
-// 			console.log(err);
-// 		} else {
-			
-// 			Object.keys(foundMaster.appointments).forEach(function(key, ind) {
-//            if(ind !== 0){
-// 	           this[key].forEach(app =>{
-				   
-// 		         if (app._id == appId){
-// 		        	console.log(app)
-// 		}
-// 	})
-	
-// } 
-// }, foundMaster.appointments);
-// 			// console.log(foundMaster.appointments)
-// 			res.send({foundMaster, message: "Hello Bliaha chut ne udalil appp"});
-// 		}
-// 	});
-// });
-
-
-
-
 //----------------------------------------
 
 
 
 
+app.listen(3333, () =>{
+	console.log("Serever started")
+})
 
 
-
-
-
-
-
-
-// app.listen(3333, () =>{
-// 	console.log("Serever started")
-// })
-
-
-app.listen(process.env.PORT, '0.0.0.0')  //server for heroku
+// app.listen(process.env.PORT, '0.0.0.0')  //server for heroku

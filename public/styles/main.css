@@ -19,6 +19,13 @@ body{
   font-weight: 300;
   color: #fff;
 	background: #071313;
+	input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    background-color: transparent;
+    outline: none;
+}
 }
 
 a{
@@ -911,7 +918,7 @@ iframe:hover{
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin-top: 15vh;
+  margin-top: 7vh;
  position: relative;
 }
 
@@ -1026,7 +1033,7 @@ iframe:hover{
 
 /* ====================days */
 .calendar{
-  width: 100%;
+  width: 95%;
   display: flex;
   justify-content: center; 
 	flex-wrap: wrap;
@@ -1463,8 +1470,9 @@ textarea::-webkit-scrollbar {
     z-index: 2;
   }
   .nav-links{
+	  justify-content: space-around;
     position: fixed;
-    height: 100vh;
+    min-height: 70vh;
     width: 100%;
     background: #071313;
     -webkit-box-orient: vertical;
@@ -1490,7 +1498,8 @@ textarea::-webkit-scrollbar {
   }
   
   .nav-links li a{
-    font-size: 25px;
+    font-size: 18px;
+	 
   }
   
   .nav-links li:nth-child(1){
@@ -1739,11 +1748,13 @@ textarea::-webkit-scrollbar {
 
 
 
+/* 
+/////////GLOBAL 
+ */
 
-
-
-
-
+.border-glow{
+	box-shadow: 0 0 8px #67fdaf;
+}
 
 
 

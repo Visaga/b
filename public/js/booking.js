@@ -12,7 +12,9 @@ const select = document.querySelector(".select"),
       selectItems = document.querySelectorAll(".select-item"),
 	  selectBody = document.querySelector(".select-body"),
 	  days = document.querySelectorAll(".day"),
+	  calendar = document.querySelector(".calendar"),
       master = document.querySelector("#master"),
+	  timesWrapper = document.querySelector(".time-list"),
 	  timeLine = document.querySelectorAll(".time-line"),
       time = document.querySelector("#time"),
 	  date = document.querySelectorAll(".day-date"),
@@ -28,6 +30,9 @@ select.addEventListener("click", () => {
     item.addEventListener("click", () => {
       selectHeader.innerHTML = item.innerHTML;
       master.value = item.querySelector(".select-current").innerHTML;
+		selectHeader.classList.remove("border-glow");
+		calendar.classList.add("border-glow");
+		timesWrapper.classList.remove("border-glow");
 	 days.forEach(day => {
 		day.classList.remove("selectedDay");
 		});
@@ -98,6 +103,8 @@ selectBody.addEventListener("click", checkMasterRota);
 			day.classList.add("selectedDay");
 			dayInput.value = day.innerText.replace(/\s/g, '').toLowerCase();
 			dateInput.value = date[ind].innerText;
+			calendar.classList.remove("border-glow");
+			timesWrapper.classList.add("border-glow");
 			
 		//========FIND AVAILIBLE TIME
 		
