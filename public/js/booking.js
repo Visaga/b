@@ -18,7 +18,9 @@ const select = document.querySelector(".select"),
 	  timeLine = document.querySelectorAll(".time-line"),
       time = document.querySelector("#time"),
 	  date = document.querySelectorAll(".day-date"),
-	  dateInput = document.querySelector("#date");
+	  dateInput = document.querySelector("#date"),
+	  pleaseWait = document.querySelector(".please-wait");
+
 
 
 select.addEventListener("click", () => {
@@ -31,12 +33,14 @@ select.addEventListener("click", () => {
       selectHeader.innerHTML = item.innerHTML;
       master.value = item.querySelector(".select-current").innerHTML;
 		selectHeader.classList.remove("border-glow");
-		calendar.classList.add("border-glow");
 		timesWrapper.classList.remove("border-glow");
+		pleaseWait.classList.remove("hide");
 	 days.forEach(day => {
 		day.classList.remove("selectedDay");
 		});
-	timeLine.forEach(timeBox => {
+		
+		
+	   timeLine.forEach(timeBox => {
 		timeBox.classList.remove("selected-time");
 		timeBox.classList.remove("time-availible")
 	})
@@ -76,7 +80,6 @@ selectBody.addEventListener("click", checkMasterRota);
     }
   })
   .then((res) => { 
-	  console.log( master.value)
     return res.json();
 })
   //==========CHECK FOR WORKING DAYS
@@ -93,7 +96,9 @@ selectBody.addEventListener("click", checkMasterRota);
   
   //==========FIND AVAILIBLE TIME ON DAY SELECT
   .then((res) => { 
-	  
+	    calendar.classList.add("border-glow");
+	    pleaseWait.classList.add("hide");
+
 		days.forEach((day, ind) => {
 		day.addEventListener("click", () => {
 		if (day.classList.contains("available-day")){
@@ -105,6 +110,8 @@ selectBody.addEventListener("click", checkMasterRota);
 			dateInput.value = date[ind].innerText;
 			calendar.classList.remove("border-glow");
 			timesWrapper.classList.add("border-glow");
+			
+			
 			
 		//========FIND AVAILIBLE TIME
 		

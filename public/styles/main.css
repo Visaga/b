@@ -19,14 +19,10 @@ body{
   font-weight: 300;
   color: #fff;
 	background: #071313;
-	input:focus,
-select:focus,
-textarea:focus,
-button:focus {
-    background-color: transparent;
-    outline: none;
+
 }
-}
+
+
 
 a{
   text-decoration: none;
@@ -922,6 +918,8 @@ iframe:hover{
  position: relative;
 }
 
+
+
 .bookings-wrapper:after {
     content : "";
     display: block;
@@ -936,6 +934,13 @@ iframe:hover{
 	padding-bottom: 30px;
 	
 }
+
+.please-wait{
+	position: absolute;
+	top: 45%;
+	left: 40%;
+}
+
 
 
 /* ==================Select */
@@ -1064,6 +1069,7 @@ iframe:hover{
 
 .selectedDay{
   background: teal;
+	box-shadow: 0 0 8px #67fdaf;
 }
 
 
@@ -1101,11 +1107,12 @@ iframe:hover{
    background: rgb(200, 40, 50, 0); 
 }
 .time-availible:hover{
-  background: teal;
+  background: #c69d5bba;
 }
 
 .selected-time{
-  background: teal;
+  background: #ad791c;
+   box-shadow: 0 0 8px #67fdaf;
 }
 
 

@@ -201,7 +201,6 @@ app.post("/booking", (req, res) => {
 					
 				}
 			});
-		     console.log(bookedTime)
 	
 			 if (timeOpen.includes(time) && !bookedTime.includes(time)){
 						 if(name !== "" && phone !== "" && comment !== "" && master !== "" && day !== "" && time !== ""){
