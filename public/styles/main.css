@@ -635,9 +635,6 @@ nav{
   width: 50%;
 }
 
-.hide{
-  display: none;
-}
 .hide-opacity{
   opacity: 0;
 }
@@ -926,7 +923,7 @@ iframe:hover{
     position: absolute;
     top: 0;
     left: 0;
-	background-image: url(https://www.desktopbackground.org/download/o/2015/08/05/990462_barber-shop-backgrounds_2048x1365_h.jpg);
+	/* background-image: url(https://www.desktopbackground.org/download/o/2015/08/05/990462_barber-shop-backgrounds_2048x1365_h.jpg); */
     width: 100%;
     height: 100%;
     opacity : 0.1;
@@ -935,11 +932,7 @@ iframe:hover{
 	
 }
 
-.please-wait{
-	position: absolute;
-	top: 45%;
-	left: 40%;
-}
+
 
 
 
@@ -1042,7 +1035,24 @@ iframe:hover{
   display: flex;
   justify-content: center; 
 	flex-wrap: wrap;
+	position: relative;
 }
+
+.please-wait{
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	background: #0000000;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: #fff;
+	font-size: 20px;
+	font-weight: 700;
+}
+
 
 .dayname{
    background: #8080804a;
@@ -1164,7 +1174,21 @@ textarea::-webkit-scrollbar {
 	
 }
 
+.btn-submit{
+    color: #fff;
+    width: 150px;
+    border: 1px solid #847008c2;
+	position: relative;
+	top: 0;
+}
 
+.btn-submit:active{
+    top: 2px;
+}
+
+.btn-submit:hover{
+	box-shadow: 0 0 5px #847008c2;
+}
 
 /* //=============== Succeed ====== */
 
@@ -1764,4 +1788,7 @@ textarea::-webkit-scrollbar {
 }
 
 
+.hide{
+  display: none;
+}
 
