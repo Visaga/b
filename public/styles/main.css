@@ -903,7 +903,7 @@ iframe:hover{
   align-items: center;
   flex-direction: column;
   margin-bottom: 40px;
-  background-image: url(/images/Sparkle_rocks.jpg);
+  /* background-image: url(/images/Sparkle_rocks.jpg); */
   background-attachment: fixed;
   background-size: cover;
 }
