@@ -19,7 +19,9 @@ const select = document.querySelector(".select"),
       time = document.querySelector("#time"),
 	  date = document.querySelectorAll(".day-date"),
 	  dateInput = document.querySelector("#date"),
-	  pleaseWait = document.querySelector(".please-wait");
+	  pleaseWait = document.querySelector(".please-wait"),
+	  btnSubmit = document.querySelector(".btn-submit"),
+      hidenInputs = document.querySelectorAll(".invisible");
 
 
 
@@ -30,6 +32,7 @@ select.addEventListener("click", () => {
  
   selectItems.forEach(item => {
     item.addEventListener("click", () => {
+		
       selectHeader.innerHTML = item.innerHTML;
       master.value = item.querySelector(".select-current").innerHTML;
 		selectHeader.classList.remove("border-glow");
@@ -39,16 +42,19 @@ select.addEventListener("click", () => {
 		day.classList.remove("selectedDay");
 		});
 		
+		//resset hiden inputs
+		day.value = "";
+		time.value = "";
 		
 	   timeLine.forEach(timeBox => {
 		timeBox.classList.remove("selected-time");
 		timeBox.classList.remove("time-availible")
 	})
+		
     });
   });
 
 //-------------------------------------------------------------
-
 
 
 
@@ -61,6 +67,24 @@ const weekDays = [ "Sun","Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
 
 
   let count = 0;  
+
+
+
+///form validation
+
+ btnSubmit.addEventListener("click", e => {
+	 
+	 for (let i = 0; i < hidenInputs.length; i++){
+		 if (hidenInputs[i].value == ""){
+			 alert("Please select " + hidenInputs[i].name);
+		     e.preventDefault();
+			 break
+		 }
+	 }
+
+ });
+
+
 
 
 
@@ -143,10 +167,6 @@ selectBody.addEventListener("click", checkMasterRota);
 		  });
 	  });
 	  
-	  
-	
-      
-
   });
 	 
 }

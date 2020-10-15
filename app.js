@@ -188,10 +188,10 @@ app.get("/booking/day", (req, res) => {
 //=============BOOKING LOGIC
 
 app.post("/booking", (req, res) => {
-	const {name, phone, comment, master, day, date,time} = req.body;
+	let {name, phone, comment, master, day, date,time} = req.body;
 	const timeOpen = ["10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00"];
-	
-	console.log(master)
+	if (comment == ""){ comment = "No message has been left!"}
+
 	Booking.find({day: day})
 		.then(result => {
 			let bookedTime = [];
@@ -203,7 +203,7 @@ app.post("/booking", (req, res) => {
 			});
 	
 			 if (timeOpen.includes(time) && !bookedTime.includes(time)){
-						 if(name !== "" && phone !== "" && comment !== "" && master !== "" && day !== "" && time !== ""){
+						 if(name !== "" && phone !== "" && master !== "" && day !== "" && time !== ""){
 							      const d = new Date()
 							     let timeStamp = (d.getMonth() +1) + (d.getDate()) + (d.getTime())
 							 
@@ -278,9 +278,9 @@ app.delete("/bensdashbord/delete", (req, res) => {
 
 
 
-// app.listen(3333, () =>{
-// 	console.log("Serever started")
-// })
+app.listen(3333, () =>{
+	console.log("Serever started")
+})
 
 
-app.listen(process.env.PORT, '0.0.0.0')  //server for heroku
+// app.listen(process.env.PORT, '0.0.0.0')  //server for heroku

@@ -81,20 +81,20 @@
     
           <form action="/booking" method="POST">
             <div class="input-wrapper">
-               <input id="name" type="text" name="name" placeholder="Enter Your Name">
+               <input id="name" type="text" name="name" placeholder="Enter Your Name" required>
             </div>
             <div class="input-wrapper">
-                <input id="mobile" type="phone" name="phone" placeholder="Enter your Phone Number">
+                <input id="mobile" type="phone" name="phone" placeholder="07900 00000" required>
             </div>
                <div class="input-wrapper">
                 <textarea name="comment" id="comment" cols="" rows=""></textarea>
             </div>
             <div class="input-wrapper">
-              <input id="master" class="invisible" type="hidden" name="master" value="Any">
+              <input id="master" class="invisible" type="hidden" name="master" >
             <input id="day" class="invisible"  type="hidden" name="day" value="">
             <input id="time" class="invisible" type="hidden" name="time" value="">
-			<input id="id" class="invisible" type="hidden" name="masterId" value="">
-			<input id="date" class="invisible" type="hidden" name="date" value="">
+			<input id="id"  type="hidden" name="masterId" value="">
+			<input id="date"  type="hidden" name="date" value="">
             </div>
             <input type="submit" class="btn-submit" value="Book Now">
       </form>
