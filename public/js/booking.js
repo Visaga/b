@@ -143,11 +143,14 @@ selectBody.addEventListener("click", checkMasterRota);
 				   timeBox.classList.remove("selected-time");
 				   
 				   	if (res[0][dayInput.value] && res[0][dayInput.value].includes(timeBox.innerText)){
-					timeBox.classList.remove("time-availible");					
+					timeBox.classList.remove("time-availible");	
+				    timeBox.classList.add("notAvailable");	
+					
 				     }
 	
 				 else {
 					timeBox.classList.add("time-availible");
+					 timeBox.classList.remove("notAvailable");
 				}    
 			   });
 			}	 

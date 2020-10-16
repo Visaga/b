@@ -1253,11 +1253,15 @@ textarea::-webkit-scrollbar {
 }
 
 .btn-submit{
+	-webkit-appearance: none;
     color: #fff;
     width: 150px;
-    border: 1px solid #847008c2;
+    border: 1px solid #84700880;
 	position: relative;
 	top: 0;
+	background: #080808;
+	border-radius: 0;
+	box-shadow: 0 0 8px #67fdaf90;
 }
 
 
@@ -1271,7 +1275,7 @@ textarea::-webkit-scrollbar {
 }
 
 .btn-submit:hover{
-	box-shadow: 0 0 5px #847008c2;
+	box-shadow: 0 0 5px #67fdaf;
 }
 
 /* //=============== Succeed ====== */
