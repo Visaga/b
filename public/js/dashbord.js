@@ -152,13 +152,19 @@ function selectMasterAndUpdateInfo(){
 				.then(res => {
 					console.log(res.message)
 					
+					let wrapper = e.target.closest('.working-day-wrapper');
+					wrapper.querySelector(".working-day").querySelector(".total-app").innerText = "Total: " + (wrapper.childNodes.length - 2)
+					
 					if (e.target.closest('.working-day-wrapper').childNodes.length < 3){
 						e.target.closest('.working-day-wrapper').remove();
 					} else {
 						e.target.closest('.appointment-line').remove();
-					}							
+					}		
+					
+					return 
 				})
 				.then(res => {
+					
 					if (appResults.childNodes.length == 0){
 						appResults.innerHTML = `
        <div class="dashbord-preview"> No appointments booked yet..</div>
@@ -179,8 +185,23 @@ function selectMasterAndUpdateInfo(){
 }
 
 
+// checking date if it is not over. better to put on back end 
 
-
-
+function checkDate(appDate){
+	
+	let date = new Date();
+	let currentDate = date.getDate() + "." + (date.getMonth()+ 1) + "." + date.getFullYear();
+	
+	if ( appDate > currentDate ) {
+		return true;
+	} else if ( appDate == currentDate ){
+		console.log("It's today , please check the time");
+		return false;
+	} else {
+		return false
+	}
+	
+	
+}
 
 
