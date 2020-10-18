@@ -10,8 +10,6 @@ const dashTitles = document.querySelectorAll(".dashbord-title"),
 let masterBtnFlag = true;
 
 	  
-	  
-
 
 dashTitles.forEach(title => {
   title.addEventListener("click", selectTitle);
@@ -97,8 +95,16 @@ function selectMasterAndUpdateInfo(){
 		res.appointments[day].forEach( app => {
 			
 			const appLine = document.createElement("div");
-		
-			appLine.classList.add("appointment-line");
+					appLine.classList.add("appointment-line");
+
+					// Check if appointment is not overdue, if so apply class overdue
+			if ( overdue(app.date.slice(0,10), app.time)){
+				console.log("app overdue " + app.time);
+				appLine.classList.add("appointment-overdue");
+			}
+
+
+
 			appLine.innerHTML = `
           <div class="appointment-line-inner">
                     <div class="app-time">` + app.time + `</div>
@@ -130,8 +136,7 @@ function selectMasterAndUpdateInfo(){
 `
 					}
 	 
-	 
-	 
+
 	   const cancelBtns = document.querySelectorAll(".cancel-btn");	  
 	
 		cancelBtns.forEach((btn, ind) =>{
@@ -187,21 +192,25 @@ function selectMasterAndUpdateInfo(){
 
 // checking date if it is not over. better to put on back end 
 
-function checkDate(appDate){
+function overdue(appDate, appTime){
 	
 	let date = new Date();
 	let currentDate = date.getDate() + "." + (date.getMonth()+ 1) + "." + date.getFullYear();
 	
-	if ( appDate > currentDate ) {
+	let currentTime = date.getHours() + ":" + date.getMinutes();
+
+
+	if ( appDate < currentDate ) {
 		return true;
 	} else if ( appDate == currentDate ){
-		console.log("It's today , please check the time");
-		return false;
+		if ( appTime < currentTime ){
+			return true;
+		} else {
+			return false;
+		}
 	} else {
-		return false
+		return false;
 	}
-	
-	
 }
 
 
